@@ -4,8 +4,246 @@ import pandas as pd
 import numpy as np
 import os
 
-from sklearn.utils.validation import check_is_fitted
 
+ # ==============================
+# NIRMAYA AESTHETIC UI
+# ==============================
+
+st.markdown("""
+<style>
+
+/* ---------- MAIN BACKGROUND ---------- */
+
+.stApp {
+    background:
+        radial-gradient(circle at 10% 10%, rgba(0, 180, 255, 0.10), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(90, 60, 255, 0.10), transparent 30%),
+        linear-gradient(135deg, #07111f 0%, #0b1628 50%, #07111f 100%);
+    color: #f5f7fa;
+}
+
+/* ---------- REMOVE DEFAULT TOP SPACE ---------- */
+
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+    max-width: 1200px;
+}
+
+/* ---------- MAIN TITLE ---------- */
+
+.main-title {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.main-title h1 {
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    margin-bottom: 5px;
+    background: linear-gradient(90deg, #62d9ff, #7c83ff, #b47cff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.main-title p {
+    color: #9caec4;
+    font-size: 17px;
+    margin-top: 0;
+}
+
+/* ---------- SECTION HEADINGS ---------- */
+
+h1, h2, h3 {
+    color: #f4f8ff !important;
+}
+
+h2 {
+    margin-top: 25px;
+}
+
+h3 {
+    font-weight: 650;
+}
+
+/* ---------- GLASS CARDS ---------- */
+
+.nirmaya-card {
+    background: rgba(17, 30, 50, 0.72);
+    border: 1px solid rgba(120, 180, 255, 0.14);
+    border-radius: 20px;
+    padding: 25px;
+    margin: 15px 0;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(14px);
+}
+
+/* ---------- INFO CARDS ---------- */
+
+.info-card {
+    background: linear-gradient(
+        135deg,
+        rgba(22, 43, 70, 0.85),
+        rgba(15, 29, 50, 0.75)
+    );
+
+    border: 1px solid rgba(80, 180, 255, 0.18);
+    border-radius: 18px;
+    padding: 22px;
+    margin: 12px 0;
+}
+
+.info-card h3 {
+    margin-top: 0;
+    color: #66d9ff !important;
+}
+
+.info-card p {
+    color: #b8c6d9;
+    line-height: 1.7;
+}
+
+/* ---------- INPUT BOXES ---------- */
+
+.stTextInput input,
+.stNumberInput input,
+.stSelectbox div[data-baseweb="select"],
+.stMultiSelect div[data-baseweb="select"] {
+    background-color: rgba(12, 25, 43, 0.9) !important;
+    color: #f5f7fa !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(110, 180, 255, 0.20) !important;
+}
+
+/* ---------- LABELS ---------- */
+
+label {
+    color: #c9d6e8 !important;
+    font-weight: 550 !important;
+}
+
+/* ---------- BUTTONS ---------- */
+
+.stButton > button {
+    width: 100%;
+    border: none;
+    border-radius: 13px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 650;
+
+    color: white;
+
+    background: linear-gradient(
+        90deg,
+        #168cff,
+        #6366f1
+    );
+
+    box-shadow: 0 8px 22px rgba(40, 120, 255, 0.25);
+
+    transition: all 0.25s ease;
+}
+
+.stButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(60, 150, 255, 0.40);
+}
+
+/* ---------- FILE UPLOADER ---------- */
+
+[data-testid="stFileUploader"] {
+    background: rgba(15, 29, 48, 0.70);
+    border: 1px dashed rgba(90, 190, 255, 0.35);
+    border-radius: 18px;
+    padding: 15px;
+}
+
+/* ---------- RADIO BUTTON ---------- */
+
+.stRadio > div {
+    background: rgba(15, 29, 48, 0.65);
+    border-radius: 14px;
+    padding: 10px 15px;
+}
+
+/* ---------- SUCCESS ---------- */
+
+div[data-testid="stAlert"] {
+    border-radius: 14px;
+}
+
+/* ---------- METRICS ---------- */
+
+[data-testid="stMetric"] {
+    background: rgba(17, 32, 53, 0.78);
+    border: 1px solid rgba(100, 180, 255, 0.15);
+    border-radius: 18px;
+    padding: 18px;
+}
+
+/* ---------- DATAFRAME ---------- */
+
+[data-testid="stDataFrame"] {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* ---------- DIVIDER ---------- */
+
+hr {
+    border-color: rgba(120, 170, 220, 0.15);
+}
+
+/* ---------- CAPTION ---------- */
+
+.stCaption {
+    color: #91a4bc !important;
+}
+
+/* ---------- SCROLLBAR ---------- */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #07111f;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #263b59;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #3978ad;
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 768px) {
+
+    .main-title h1 {
+        font-size: 38px;
+    }
+
+    .block-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+</style>
+""", unsafe_allow_html=True)
+from sklearn.utils.validation import check_is_fitted
+from report_ai.ocr.reader import extract_text_from_image
+from report_ai.extractor.feature_mapper import (
+    map_heart_disease_features,
+    check_missing_features
+)
 
 # ============================================================
 # PAGE CONFIGURATION
@@ -140,14 +378,14 @@ st.markdown(
 # HEADER
 # ============================================================
 
-st.title("🏥 MediPredict AI")
+st.title("🩺 NIRMAYA")
 
 st.markdown(
     "**Multi-Disease AI Screening Platform**"
 )
 
 st.caption(
-    "AI-assisted screening using six independent machine-learning models."
+    "AI-Powered Multi-Disease Screening Platform"
 )
 
 st.divider()
@@ -1203,12 +1441,11 @@ def make_prediction(
     # --------------------------------------------------------
     # CREATE DATAFRAME
     # --------------------------------------------------------
+       
+    input_df = pd.DataFrame([values], columns=features)
 
-    input_df = pd.DataFrame(
-        [values],
-        columns=features
-    )
-
+    input_df = input_df.apply(pd.to_numeric, errors="coerce")
+   
     # --------------------------------------------------------
     # CONVERT TO NUMERIC
     # --------------------------------------------------------
@@ -1665,7 +1902,95 @@ if user_type == "Patient":
     st.success(
         f"✅ Selected: {disease}"
     )
+    # ==============================
+# AI MEDICAL REPORT OCR
+# ==============================
 
+st.subheader("📄 Upload Medical Report")
+
+input_method = st.radio(
+    "Choose how you want to provide medical data:",
+    ["Enter Data Manually", "Upload Medical Report"],
+    horizontal=True
+)
+
+ocr_data = None
+
+if input_method == "Upload Medical Report":
+
+    uploaded_report = st.file_uploader(
+        "Upload your medical report",
+        type=["png", "jpg", "jpeg", "webp"],
+        help="Upload a clear medical report image."
+    )
+
+    if uploaded_report is not None:
+
+        st.image(
+            uploaded_report,
+            caption="Uploaded Medical Report",
+            use_container_width=True
+        )
+
+        if st.button("🔍 Extract Report Data", key="extract_report_data"):
+
+            try:
+                # Save uploaded file temporarily
+                temp_path = os.path.join(
+                    os.getcwd(),
+                    "temp_medical_report.png"
+                )
+
+                with open(temp_path, "wb") as f:
+                    f.write(uploaded_report.getbuffer())
+
+                with st.spinner("AI is reading the medical report..."):
+
+                    ocr_data = extract_text_from_image(temp_path)
+
+                st.success("✅ Report data extracted successfully!")
+
+                # Show extracted information
+                st.subheader("📋 Extracted Information")
+
+                st.json(ocr_data)
+
+                # Heart disease feature mapping
+                if selected_disease == "Heart Disease":
+
+                    mapped_data = map_heart_disease_features(
+                        ocr_data
+                    )
+
+                    missing_features = check_missing_features(
+                        mapped_data
+                    )
+
+                    st.subheader("🔎 Model Feature Check")
+
+                    if len(missing_features) == 0:
+
+                        st.success(
+                            "✅ All required Heart Disease features were found."
+                        )
+
+                    else:
+
+                        st.warning(
+                            "⚠️ Some required features are missing."
+                        )
+
+                        st.write(
+                            "Missing features:"
+                        )
+
+                        st.write(missing_features)
+
+            except Exception as e:
+
+                st.error(
+                    f"❌ Could not extract report data: {e}"
+                )
     # --------------------------------------------------------
     # LOAD MODEL
     # --------------------------------------------------------
@@ -1930,11 +2255,6 @@ else:
             )
 
             st.exception(e)
-
-
-# ============================================================
-# FOOTER
-# ============================================================
 
 st.divider()
 
