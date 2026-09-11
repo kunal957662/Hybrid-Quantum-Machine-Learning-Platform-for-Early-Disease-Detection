@@ -3,251 +3,19 @@ import joblib
 import pandas as pd
 import numpy as np
 import os
+import re
 
 
- # ==============================
-# NIRMAYA AESTHETIC UI
-# ==============================
-
-st.markdown("""
-<style>
-
-/* ---------- MAIN BACKGROUND ---------- */
-
-.stApp {
-    background:
-        radial-gradient(circle at 10% 10%, rgba(0, 180, 255, 0.10), transparent 30%),
-        radial-gradient(circle at 90% 20%, rgba(90, 60, 255, 0.10), transparent 30%),
-        linear-gradient(135deg, #07111f 0%, #0b1628 50%, #07111f 100%);
-    color: #f5f7fa;
-}
-
-/* ---------- REMOVE DEFAULT TOP SPACE ---------- */
-
-.block-container {
-    padding-top: 2rem;
-    padding-bottom: 3rem;
-    max-width: 1200px;
-}
-
-/* ---------- MAIN TITLE ---------- */
-
-.main-title {
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 5px;
-}
-
-.main-title h1 {
-    font-size: 52px;
-    font-weight: 800;
-    letter-spacing: 4px;
-    margin-bottom: 5px;
-    background: linear-gradient(90deg, #62d9ff, #7c83ff, #b47cff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.main-title p {
-    color: #9caec4;
-    font-size: 17px;
-    margin-top: 0;
-}
-
-/* ---------- SECTION HEADINGS ---------- */
-
-h1, h2, h3 {
-    color: #f4f8ff !important;
-}
-
-h2 {
-    margin-top: 25px;
-}
-
-h3 {
-    font-weight: 650;
-}
-
-/* ---------- GLASS CARDS ---------- */
-
-.nirmaya-card {
-    background: rgba(17, 30, 50, 0.72);
-    border: 1px solid rgba(120, 180, 255, 0.14);
-    border-radius: 20px;
-    padding: 25px;
-    margin: 15px 0;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(14px);
-}
-
-/* ---------- INFO CARDS ---------- */
-
-.info-card {
-    background: linear-gradient(
-        135deg,
-        rgba(22, 43, 70, 0.85),
-        rgba(15, 29, 50, 0.75)
-    );
-
-    border: 1px solid rgba(80, 180, 255, 0.18);
-    border-radius: 18px;
-    padding: 22px;
-    margin: 12px 0;
-}
-
-.info-card h3 {
-    margin-top: 0;
-    color: #66d9ff !important;
-}
-
-.info-card p {
-    color: #b8c6d9;
-    line-height: 1.7;
-}
-
-/* ---------- INPUT BOXES ---------- */
-
-.stTextInput input,
-.stNumberInput input,
-.stSelectbox div[data-baseweb="select"],
-.stMultiSelect div[data-baseweb="select"] {
-    background-color: rgba(12, 25, 43, 0.9) !important;
-    color: #f5f7fa !important;
-    border-radius: 12px !important;
-    border: 1px solid rgba(110, 180, 255, 0.20) !important;
-}
-
-/* ---------- LABELS ---------- */
-
-label {
-    color: #c9d6e8 !important;
-    font-weight: 550 !important;
-}
-
-/* ---------- BUTTONS ---------- */
-
-.stButton > button {
-    width: 100%;
-    border: none;
-    border-radius: 13px;
-    padding: 12px 20px;
-    font-size: 16px;
-    font-weight: 650;
-
-    color: white;
-
-    background: linear-gradient(
-        90deg,
-        #168cff,
-        #6366f1
-    );
-
-    box-shadow: 0 8px 22px rgba(40, 120, 255, 0.25);
-
-    transition: all 0.25s ease;
-}
-
-.stButton > button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(60, 150, 255, 0.40);
-}
-
-/* ---------- FILE UPLOADER ---------- */
-
-[data-testid="stFileUploader"] {
-    background: rgba(15, 29, 48, 0.70);
-    border: 1px dashed rgba(90, 190, 255, 0.35);
-    border-radius: 18px;
-    padding: 15px;
-}
-
-/* ---------- RADIO BUTTON ---------- */
-
-.stRadio > div {
-    background: rgba(15, 29, 48, 0.65);
-    border-radius: 14px;
-    padding: 10px 15px;
-}
-
-/* ---------- SUCCESS ---------- */
-
-div[data-testid="stAlert"] {
-    border-radius: 14px;
-}
-
-/* ---------- METRICS ---------- */
-
-[data-testid="stMetric"] {
-    background: rgba(17, 32, 53, 0.78);
-    border: 1px solid rgba(100, 180, 255, 0.15);
-    border-radius: 18px;
-    padding: 18px;
-}
-
-/* ---------- DATAFRAME ---------- */
-
-[data-testid="stDataFrame"] {
-    border-radius: 15px;
-    overflow: hidden;
-}
-
-/* ---------- DIVIDER ---------- */
-
-hr {
-    border-color: rgba(120, 170, 220, 0.15);
-}
-
-/* ---------- CAPTION ---------- */
-
-.stCaption {
-    color: #91a4bc !important;
-}
-
-/* ---------- SCROLLBAR ---------- */
-
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: #07111f;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #263b59;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #3978ad;
-}
-
-/* ---------- MOBILE ---------- */
-
-@media (max-width: 768px) {
-
-    .main-title h1 {
-        font-size: 38px;
-    }
-
-    .block-container {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-}
-
-</style>
-""", unsafe_allow_html=True)
 from sklearn.utils.validation import check_is_fitted
 from report_ai.ocr.reader import extract_text_from_image
-from report_ai.extractor.feature_mapper import (
-    map_heart_disease_features,
-    check_missing_features
+from report_ai.chatbot import ask_nirmaya_ai
+from patient_history import (
+    create_database,
+    save_patient_record,
+    get_patient_history,
+    get_patient_names
 )
-
-# ============================================================
-# PAGE CONFIGURATION
-# ============================================================
+create_database()
 
 st.set_page_config(
     page_title="MediPredict AI",
@@ -256,123 +24,50 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# ============================================================
+# PAGE CONFIGURATION
+# ============================================================
+
 
 # ============================================================
 # CUSTOM CSS
 # ============================================================
 
-st.markdown(
-    """
-    <style>
-
-    .stApp {
-        background: linear-gradient(
-            135deg,
-            #dbeafe 0%,
-            #e0f2fe 45%,
-            #f0f9ff 100%
-        );
-    }
-
-    .main .block-container {
-        padding-top: 2rem;
-        padding-bottom: 3rem;
-        max-width: 1400px;
-    }
-
-    h1, h2, h3, h4 {
-        color: #0f172a !important;
-        font-weight: 750;
-    }
-
-    p, label {
-        color: #0f172a !important;
-    }
-
-    .stTextInput input,
-    .stNumberInput input,
-    .stSelectbox div[data-baseweb="select"] > div {
-        background-color: #ffffff !important;
-        color: #0f172a !important;
-        border-radius: 12px !important;
-        border: 1px solid #93c5fd !important;
-    }
-
-    .stSelectbox div[data-baseweb="select"] * {
-        color: #0f172a !important;
-    }
-
-    .stTextInput input::placeholder {
-        color: #64748b !important;
-    }
-
-    .stButton > button {
-        width: 100%;
-        border-radius: 12px;
-        border: none;
-        padding: 0.75rem 1rem;
-        background: linear-gradient(
-            90deg,
-            #2563eb,
-            #0ea5e9
-        );
-        color: white !important;
-        font-weight: 700;
-    }
-
-    .stButton > button:hover {
-        background: linear-gradient(
-            90deg,
-            #1d4ed8,
-            #0284c7
-        );
-    }
-
-    .stAlert {
-        border-radius: 14px;
-    }
-
-    section[data-testid="stSidebar"] {
-        background: linear-gradient(
-            180deg,
-            #0f2742,
-            #172554,
-            #0f172a
-        );
-    }
-
-    section[data-testid="stSidebar"] * {
-        color: white !important;
-    }
-
-    .medical-card {
-        background: rgba(255,255,255,0.88);
-        border: 1px solid rgba(147,197,253,0.7);
-        border-radius: 18px;
-        padding: 24px;
-        margin: 15px 0;
-        box-shadow: 0 8px 25px rgba(15,23,42,0.08);
-    }
-
-    .result-card {
-        background: white;
-        border-radius: 18px;
-        padding: 25px;
-        margin-top: 20px;
-        border: 1px solid #bfdbfe;
-        box-shadow: 0 8px 25px rgba(15,23,42,0.10);
-    }
-
-    .small-note {
-        color: #475569 !important;
-        font-size: 14px;
-    }
-
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
+st.markdown("""
+<style>
+.stApp {
+    background:
+        radial-gradient(circle at 10% 10%, rgba(0, 180, 255, 0.10), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(90, 60, 255, 0.10), transparent 30%),
+        linear-gradient(135deg, #07111f 0%, #0b1628 50%, #07111f 100%);
+    color: #f5f7fa;
+}
+.block-container { padding-top: 2rem; padding-bottom: 3rem; max-width: 1200px; }
+h1, h2, h3, h4 { color: #f4f8ff !important; }
+p, label { color: #c9d6e8 !important; }
+.stTextInput input, .stNumberInput input, .stSelectbox div[data-baseweb="select"], .stMultiSelect div[data-baseweb="select"] {
+    background-color: rgba(12, 25, 43, 0.9) !important;
+    color: #f5f7fa !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(110, 180, 255, 0.20) !important;
+}
+.stSelectbox div[data-baseweb="select"] * { color: #f5f7fa !important; }
+.stButton > button {
+    width: 100%; border: none; border-radius: 13px; padding: 12px 20px;
+    font-size: 16px; font-weight: 650; color: white !important;
+    background: linear-gradient(90deg, #168cff, #6366f1);
+    box-shadow: 0 8px 22px rgba(40, 120, 255, 0.25);
+}
+.stButton > button:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(60, 150, 255, 0.40); }
+[data-testid="stFileUploader"] { background: rgba(15, 29, 48, 0.70); border: 1px dashed rgba(90, 190, 255, 0.35); border-radius: 18px; padding: 15px; }
+.stRadio > div { background: rgba(15, 29, 48, 0.65); border-radius: 14px; padding: 10px 15px; }
+[data-testid="stMetric"] { background: rgba(17, 32, 53, 0.78); border: 1px solid rgba(100, 180, 255, 0.15); border-radius: 18px; padding: 18px; }
+section[data-testid="stSidebar"] { background: linear-gradient(180deg, #0f2742, #172554, #0f172a); }
+section[data-testid="stSidebar"] * { color: white !important; }
+hr { border-color: rgba(120, 170, 220, 0.15); }
+.stCaption { color: #91a4bc !important; }
+</style>
+""", unsafe_allow_html=True)
 
 # ============================================================
 # HEADER
@@ -818,6 +513,154 @@ def widget_key(prefix, index, feature):
         f"{prefix}_{index}_{clean_feature}"
     )
 
+
+# ============================================================
+# OCR PREFILL HELPER
+# ============================================================
+
+def _normalise_ocr_key(value):
+    return re.sub(r"[^a-z0-9]", "", str(value).lower())
+
+
+def _ocr_number(value):
+    if isinstance(value, (int, float, np.integer, np.floating)):
+        return float(value)
+    match = re.search(r"-?\d+(?:\.\d+)?", str(value))
+    return float(match.group()) if match else None
+
+
+def apply_ocr_to_inputs(disease, features, ocr_data, prefix):
+    """Safely prefill Streamlit input state from OCR values.
+
+    Only clear feature matches are applied. Missing/ambiguous values are
+    left for manual entry; the app never invents a value.
+    """
+    if not isinstance(ocr_data, dict):
+        return
+
+    # OCR responses can contain nested dictionaries such as
+    # {"medical_values": {"Cholesterol": {"result": "236"}}}.
+    # Flatten them so matching can use the actual field names without
+    # ever showing the raw OCR/JSON response to the user.
+    source = {}
+
+    def collect_values(obj, parent_key=""):
+        if isinstance(obj, dict):
+            for key, value in obj.items():
+                full_key = f"{parent_key} {key}".strip()
+                if isinstance(value, dict):
+                    collect_values(value, full_key)
+                else:
+                    source[_normalise_ocr_key(full_key)] = value
+                    source[_normalise_ocr_key(key)] = value
+        elif parent_key:
+            source[_normalise_ocr_key(parent_key)] = obj
+
+    collect_values(ocr_data)
+
+    aliases = {
+        "age": ["age", "patientage"],
+        "sex": ["sex", "gender"],
+        "cp": ["cp", "chestpaintype", "chestpain"],
+        "trestbps": ["trestbps", "restingbloodpressure", "bloodpressure", "bp"],
+        "chol": ["chol", "cholesterol", "totalcholesterol"],
+        "fbs": ["fbs", "fastingbloodsugar", "fastingglucose", "glucose"],
+        "restecg": ["restecg", "restingecg", "ecg"],
+        "thalach": ["thalach", "maximumheartrate", "maxheartrate", "heartrate"],
+        "exang": ["exang", "exerciseinducedangina", "angina"],
+        "oldpeak": ["oldpeak", "stdepression", "stdepressionoldpeak"],
+        "slope": ["slope"],
+        "ca": ["ca", "numberofmajorvessels", "majorvessels"],
+        "thal": ["thal"]
+    }
+
+    def find_value(names):
+        for name in names:
+            key = _normalise_ocr_key(name)
+            if key in source:
+                return source[key]
+        return None
+
+    if disease == "Heart Disease":
+        mapping = {
+            "age": find_value(aliases["age"]),
+            "sex": find_value(aliases["sex"]),
+            "cp": find_value(aliases["cp"]),
+            "bp": find_value(aliases["trestbps"]),
+            "chol": find_value(aliases["chol"]),
+            "fbs": find_value(aliases["fbs"]),
+            "restecg": find_value(aliases["restecg"]),
+            "thalach": find_value(aliases["thalach"]),
+            "exang": find_value(aliases["exang"]),
+            "oldpeak": find_value(aliases["oldpeak"]),
+            "slope": find_value(aliases["slope"]),
+            "ca": find_value(aliases["ca"]),
+            "thal": find_value(aliases["thal"]),
+        }
+
+        for field, raw in mapping.items():
+            if raw is None:
+                continue
+
+            if field == "sex":
+                text = str(raw).strip().lower()
+                if text in ("male", "m", "man"):
+                    st.session_state[f"{prefix}_heart_sex"] = "Male"
+                elif text in ("female", "f", "woman"):
+                    st.session_state[f"{prefix}_heart_sex"] = "Female"
+                continue
+
+            number = _ocr_number(raw)
+            if number is None:
+                continue
+
+            state_keys = {
+                "age": f"{prefix}_heart_age",
+                "cp": f"{prefix}_heart_cp",
+                "bp": f"{prefix}_heart_bp",
+                "chol": f"{prefix}_heart_chol",
+                "fbs": f"{prefix}_heart_fbs",
+                "restecg": f"{prefix}_heart_restecg",
+                "thalach": f"{prefix}_heart_thalach",
+                "exang": f"{prefix}_heart_exang",
+                "oldpeak": f"{prefix}_heart_oldpeak",
+                "slope": f"{prefix}_heart_slope",
+                "ca": f"{prefix}_heart_ca",
+                "thal": f"{prefix}_heart_thal",
+            }
+            key = state_keys[field]
+
+            # Keep values inside the actual widget choices/ranges.
+            if field in ("cp", "restecg", "slope", "thal") and number not in [0, 1, 2, 3]:
+                continue
+            if field in ("fbs", "exang") and number not in [0, 1]:
+                continue
+            if field == "ca" and not 0 <= number <= 4:
+                continue
+            if field == "age" and not 1 <= number <= 120:
+                continue
+            if field == "bp" and not 50 <= number <= 300:
+                continue
+            if field == "chol" and not 50 <= number <= 700:
+                continue
+            if field == "thalach" and not 30 <= number <= 300:
+                continue
+            if field == "oldpeak" and not 0 <= number <= 10:
+                continue
+
+            st.session_state[key] = int(number) if field != "oldpeak" else float(number)
+
+    else:
+        # Generic numeric prefill for diseases whose feature names match
+        # OCR keys. Categorical fields remain manual unless safely matched.
+        for i, feature in enumerate(features):
+            feature_key = _normalise_ocr_key(feature)
+            raw = source.get(feature_key)
+            if raw is None:
+                continue
+            number = _ocr_number(raw)
+            if number is not None:
+                st.session_state[widget_key(prefix, i, feature)] = number
 
 # ============================================================
 # DISEASE INPUT FORM
@@ -1528,7 +1371,11 @@ def display_result(
     disease,
     prediction,
     probability,
-    user_type
+    user_type,
+    patient_name=None,
+    patient_gender=None,
+    patient_age=None,
+    input_data=None
 ):
 
     info = DISEASE_INFO.get(
@@ -1570,11 +1417,10 @@ def display_result(
     st.subheader(
         "🔍 AI Screening Result"
     )
-
+    
     # --------------------------------------------------------
     # RISK RESULT
     # --------------------------------------------------------
-
     if prediction == 1:
 
         st.error(
@@ -1586,10 +1432,37 @@ def display_result(
         st.success(
             f"✅ Lower Risk Indicated for {disease}"
         )
-
     # --------------------------------------------------------
     # ACCURACY + CONFIDENCE
     # --------------------------------------------------------
+        # --------------------------------------------------------
+    # 💾 SAVE PATIENT SCREENING RECORD
+    # --------------------------------------------------------
+
+    if user_type == "Patient":
+
+        if st.button(
+            "💾 Save Screening Record",
+            key="save_patient_screening_record"
+        ):
+
+            save_patient_record(
+                patient_name=patient_name,
+                gender=patient_gender,
+                age=patient_age,
+                disease=disease,
+                prediction=(
+                    "Higher Risk"
+                    if prediction == 1
+                    else "Lower Risk"
+                ),
+                confidence=probability,
+                input_data=str(input_data if input_data is not None else {})
+            )
+
+            st.success(
+                "✅ Screening record saved successfully!"
+            )
 
     col1, col2 = st.columns(2)
 
@@ -1837,189 +1710,155 @@ if page == "About System":
 
 if user_type == "Patient":
 
-    st.header(
-        "👤 Patient Information"
-    )
+    st.header("👤 Patient Information")
 
     col1, col2, col3 = st.columns(3)
 
-    # --------------------------------------------------------
-    # PATIENT NAME
-    # --------------------------------------------------------
-
     with col1:
-
+        existing_patient_names = get_patient_names()
         patient_name = st.text_input(
             "Patient Name",
-            placeholder="Enter patient name"
+            placeholder="Enter patient name",
+            key="patient_name_input"
         )
 
-    # --------------------------------------------------------
-    # PATIENT GENDER
-    # --------------------------------------------------------
+        if patient_name.strip():
+            matching_names = [
+                name for name in existing_patient_names
+                if patient_name.lower() in name.lower()
+            ]
+            if matching_names:
+                st.caption("🔎 Existing patient names:")
+                for name in matching_names[:5]:
+                    if st.button(
+                        f"👤 {name}",
+                        key=f"patient_suggestion_{name}"
+                    ):
+                        st.session_state["patient_name_input"] = name
+                        st.rerun()
 
     with col2:
-
         patient_gender = st.selectbox(
             "Gender",
-            [
-                "Male",
-                "Female",
-                "Other"
-            ]
+            ["Male", "Female", "Other"],
+            key="patient_gender_input"
         )
 
-    # --------------------------------------------------------
-    # PATIENT AGE
-    # --------------------------------------------------------
-
     with col3:
-
         patient_age = st.number_input(
             "Age",
             min_value=1,
             max_value=120,
-            value=25
+            value=25,
+            key="patient_age_input"
         )
 
     st.divider()
 
-    # --------------------------------------------------------
-    # DISEASE
-    # --------------------------------------------------------
-
-    st.header(
-        "🩺 Select Disease"
-    )
+    st.header("🩺 Select Disease")
 
     disease = st.selectbox(
         "Choose a disease for screening",
         list(MODEL_PATHS.keys()),
-        format_func=lambda x:
-            f"{DISEASE_INFO[x]['icon']} {x}"
+        format_func=lambda x: f"{DISEASE_INFO[x]['icon']} {x}",
+        key="patient_disease"
     )
 
-    st.success(
-        f"✅ Selected: {disease}"
-    )
-    # ==============================
-# AI MEDICAL REPORT OCR
-# ==============================
+    st.success(f"✅ Selected: {disease}")
 
-st.subheader("📄 Upload Medical Report")
+    # ========================================================
+    # AI MEDICAL REPORT OCR
+    # ========================================================
 
-input_method = st.radio(
-    "Choose how you want to provide medical data:",
-    ["Enter Data Manually", "Upload Medical Report"],
-    horizontal=True
-)
+    st.subheader("📄 Medical Data")
 
-ocr_data = None
-
-if input_method == "Upload Medical Report":
-
-    uploaded_report = st.file_uploader(
-        "Upload your medical report",
-        type=["png", "jpg", "jpeg", "webp"],
-        help="Upload a clear medical report image."
+    input_method = st.radio(
+        "Choose how you want to provide medical data:",
+        ["Enter Data Manually", "Upload Medical Report"],
+        horizontal=True,
+        key="patient_input_method"
     )
 
-    if uploaded_report is not None:
-
-        st.image(
-            uploaded_report,
-            caption="Uploaded Medical Report",
-            use_container_width=True
+    if input_method == "Upload Medical Report":
+        uploaded_report = st.file_uploader(
+            "Upload your medical report",
+            type=["png", "jpg", "jpeg", "webp"],
+            help="Upload a clear medical report image.",
+            key="patient_medical_report"
         )
 
-        if st.button("🔍 Extract Report Data", key="extract_report_data"):
+        if uploaded_report is not None:
+            st.image(
+                uploaded_report,
+                caption="Uploaded Medical Report",
+                width="stretch"
+            )
 
-            try:
-                # Save uploaded file temporarily
-                temp_path = os.path.join(
-                    os.getcwd(),
-                    "temp_medical_report.png"
-                )
-
-                with open(temp_path, "wb") as f:
-                    f.write(uploaded_report.getbuffer())
-
-                with st.spinner("AI is reading the medical report..."):
-
-                    ocr_data = extract_text_from_image(temp_path)
-
-                st.success("✅ Report data extracted successfully!")
-
-                # Show extracted information
-                st.subheader("📋 Extracted Information")
-
-                st.json(ocr_data)
-
-                # Heart disease feature mapping
-                if selected_disease == "Heart Disease":
-
-                    mapped_data = map_heart_disease_features(
-                        ocr_data
+            if st.button(
+                "🔍 Extract Report Data",
+                key="extract_report_data"
+            ):
+                try:
+                    temp_path = os.path.join(
+                        os.getcwd(),
+                        "temp_medical_report.png"
                     )
 
-                    missing_features = check_missing_features(
-                        mapped_data
-                    )
+                    with open(temp_path, "wb") as f:
+                        f.write(uploaded_report.getbuffer())
 
-                    st.subheader("🔎 Model Feature Check")
+                    with st.spinner("AI is reading the medical report..."):
+                        extracted = extract_text_from_image(temp_path)
 
-                    if len(missing_features) == 0:
+                    st.session_state["ocr_data"] = extracted
+                    st.success("✅ Report data extracted successfully!")
 
-                        st.success(
-                            "✅ All required Heart Disease features were found."
-                        )
+                except Exception as e:
+                    st.error(f"❌ Could not extract report data: {e}")
 
-                    else:
+    # Keep OCR data hidden. Matching values are applied directly to the
+    # disease input widgets after the model features are loaded.
+    ocr_data = st.session_state.get("ocr_data")
 
-                        st.warning(
-                            "⚠️ Some required features are missing."
-                        )
+    if ocr_data is not None and input_method == "Upload Medical Report":
+        st.info(
+            "🤖 Report processed. Matching values will be pre-filled in the "
+            "medical parameters below. Please verify them; missing or unclear "
+            "values must be entered manually."
+        )
 
-                        st.write(
-                            "Missing features:"
-                        )
+    st.divider()
 
-                        st.write(missing_features)
-
-            except Exception as e:
-
-                st.error(
-                    f"❌ Could not extract report data: {e}"
-                )
-    # --------------------------------------------------------
+    # ========================================================
     # LOAD MODEL
-    # --------------------------------------------------------
+    # ========================================================
 
     try:
-
-        model, scaler, features = load_model(
-            disease
-        )
-
-        st.success(
-            f"🤖 {disease} model loaded successfully"
-        )
-
+        model, scaler, features = load_model(disease)
+        st.success(f"🤖 {disease} model loaded successfully")
     except Exception as e:
-
-        st.error(
-            f"❌ Could not load {disease} model"
-        )
-
+        st.error(f"❌ Could not load {disease} model")
         st.exception(e)
-
         st.stop()
 
     st.divider()
 
-    # --------------------------------------------------------
+    # ========================================================
     # MEDICAL INPUTS
-    # --------------------------------------------------------
+    # ========================================================
+
+    st.caption(
+        "Enter the values below using the same clinical/measurement units "
+        "used during model training. Do not guess missing medical values."
+    )
+
+    if ocr_data is not None and input_method == "Upload Medical Report":
+        apply_ocr_to_inputs(
+            disease,
+            features,
+            ocr_data,
+            "patient"
+        )
 
     values = create_disease_inputs(
         disease,
@@ -2029,18 +1868,16 @@ if input_method == "Upload Medical Report":
 
     st.divider()
 
-    # --------------------------------------------------------
+    # ========================================================
     # PREDICT
-    # --------------------------------------------------------
+    # ========================================================
 
     if st.button(
         f"🔍 Predict {disease}",
         type="primary",
         key="patient_predict_button"
     ):
-
         try:
-
             prediction, probability = make_prediction(
                 model,
                 scaler,
@@ -2052,23 +1889,21 @@ if input_method == "Upload Medical Report":
                 disease,
                 prediction,
                 probability,
-                "Patient"
+                "Patient",
+                patient_name=patient_name,
+                patient_gender=patient_gender,
+                patient_age=patient_age,
+                input_data=dict(zip(features, values))
             )
 
         except Exception as e:
-
-            st.error(
-                "❌ Prediction Error"
-            )
-
-            st.exception(e)
+            st.error(f"❌ Prediction failed: {e}")
 
 
-# ============================================================
 # DOCTOR PAGE
 # ============================================================
 
-else:
+if user_type == "Doctor":
 
     st.header(
         "👨‍⚕️ Doctor Information"
@@ -2185,6 +2020,91 @@ else:
     )
 
     # --------------------------------------------------------
+    # MEDICAL REPORT UPLOAD / OCR
+    # --------------------------------------------------------
+
+    st.subheader("📄 Patient Medical Report")
+
+    doctor_input_method = st.radio(
+        "Choose how you want to provide patient medical data:",
+        ["Enter Data Manually", "Upload Medical Report"],
+        horizontal=True,
+        key="doctor_input_method"
+    )
+
+    if doctor_input_method == "Upload Medical Report":
+
+        doctor_uploaded_report = st.file_uploader(
+            "Upload patient's medical report",
+            type=["png", "jpg", "jpeg", "webp"],
+            help="Upload a clear image of the patient's medical report.",
+            key="doctor_medical_report"
+        )
+
+        if doctor_uploaded_report is not None:
+
+            st.image(
+                doctor_uploaded_report,
+                caption="Uploaded Patient Medical Report",
+                width="stretch"
+            )
+
+            if st.button(
+                "🔍 Extract & Fill Patient Data",
+                key="doctor_extract_report_data"
+            ):
+                try:
+                    temp_path = os.path.join(
+                        BASE_DIR,
+                        "temp_doctor_medical_report.png"
+                    )
+
+                    with open(temp_path, "wb") as f:
+                        f.write(doctor_uploaded_report.getbuffer())
+
+                    with st.spinner(
+                        "AI is reading the patient's medical report..."
+                    ):
+                        doctor_ocr = extract_text_from_image(temp_path)
+
+                    st.session_state["doctor_ocr_data"] = doctor_ocr
+                    st.session_state["doctor_ocr_disease"] = doctor_disease
+                    st.session_state["ocr_data"] = doctor_ocr
+
+                    st.success(
+                        "✅ Report processed. Matching values have been filled into the parameters below."
+                    )
+                    st.rerun()
+
+                except Exception as e:
+                    st.error(
+                        f"❌ Could not extract patient report data: {e}"
+                    )
+
+    doctor_ocr_data = st.session_state.get("doctor_ocr_data")
+    doctor_ocr_disease = st.session_state.get("doctor_ocr_disease")
+
+    if (
+        doctor_ocr_data is not None
+        and doctor_ocr_disease == doctor_disease
+    ):
+        st.info(
+            "🤖 Extracted values are being used to pre-fill matching parameters. "
+            "Please verify them. Any missing or unclear value must be entered manually."
+        )
+
+        # Values are intentionally NOT displayed as raw OCR JSON.
+        # The helper only fills clear, safe matches in the input widgets.
+        apply_ocr_to_inputs(
+            doctor_disease,
+            st.session_state.get("doctor_features_for_ocr", []),
+            doctor_ocr_data,
+            "doctor"
+        )
+
+    st.divider()
+
+    # --------------------------------------------------------
     # LOAD MODEL
     # --------------------------------------------------------
 
@@ -2213,6 +2133,14 @@ else:
     # --------------------------------------------------------
     # MEDICAL INPUTS
     # --------------------------------------------------------
+
+    if doctor_ocr_data is not None and doctor_ocr_disease == doctor_disease:
+        apply_ocr_to_inputs(
+            doctor_disease,
+            doctor_features,
+            doctor_ocr_data,
+            "doctor"
+        )
 
     doctor_values = create_disease_inputs(
         doctor_disease,
@@ -2255,6 +2183,176 @@ else:
             )
 
             st.exception(e)
+
+st.divider()
+
+st.caption(
+    "🏥 MediPredict AI • Multi-Disease AI Screening • "
+    "For screening support only, not medical diagnosis."
+)
+# ==========================================
+# ==========================================
+# 🤖 NIRMAYA AI ASSISTANT — ATTRACTIVE CHAT UI
+# ==========================================
+
+st.divider()
+
+st.markdown("""
+<style>
+/* NIRMAYA AI chatbot container */
+.nirmaya-chat-box {
+    background: linear-gradient(135deg, #101827 0%, #172554 55%, #1e1b4b 100%);
+    border: 1px solid rgba(129, 140, 248, 0.45);
+    border-radius: 22px;
+    padding: 24px;
+    margin: 10px 0 20px 0;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.35);
+}
+
+.nirmaya-chat-title {
+    font-size: 27px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    color: #f8fafc;
+}
+
+.nirmaya-chat-subtitle {
+    color: #c7d2fe;
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.nirmaya-ai-message {
+    background: linear-gradient(135deg, #312e81, #4338ca);
+    border-left: 5px solid #a5b4fc;
+    border-radius: 16px;
+    padding: 16px 18px;
+    margin-top: 12px;
+    color: #ffffff;
+    line-height: 1.65;
+    box-shadow: 0 8px 20px rgba(49,46,129,0.35);
+}
+
+.nirmaya-user-message {
+    background: rgba(30, 41, 59, 0.95);
+    border-left: 5px solid #38bdf8;
+    border-radius: 16px;
+    padding: 14px 18px;
+    margin-top: 12px;
+    color: #e2e8f0;
+}
+
+.nirmaya-highlight {
+    background: linear-gradient(90deg, rgba(34,197,94,0.18), rgba(16,185,129,0.08));
+    border: 1px solid rgba(74,222,128,0.35);
+    border-radius: 13px;
+    padding: 12px 15px;
+    margin-top: 12px;
+    color: #dcfce7;
+}
+
+.nirmaya-warning {
+    background: linear-gradient(90deg, rgba(245,158,11,0.20), rgba(234,88,12,0.08));
+    border: 1px solid rgba(251,191,36,0.40);
+    border-radius: 13px;
+    padding: 12px 15px;
+    margin-top: 12px;
+    color: #fef3c7;
+}
+
+/* Make chatbot input attractive */
+div[data-testid="stTextArea"] textarea {
+    border-radius: 14px !important;
+    border: 1px solid rgba(129,140,248,0.45) !important;
+    background: rgba(15,23,42,0.90) !important;
+    color: #f8fafc !important;
+}
+
+div[data-testid="stTextArea"] textarea:focus {
+    border: 2px solid #818cf8 !important;
+    box-shadow: 0 0 0 3px rgba(129,140,248,0.15) !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+with st.container():
+    st.markdown('<div class="nirmaya-chat-box">', unsafe_allow_html=True)
+    st.markdown('<div class="nirmaya-chat-title">🤖 NIRMAYA AI</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="nirmaya-chat-subtitle">✨ Your intelligent medical screening assistant</div>',
+        unsafe_allow_html=True
+    )
+    st.markdown(
+        '<div class="nirmaya-highlight">💡 Ask about medical parameters, your screening result, uploaded reports, or how NIRMAYA works.</div>',
+        unsafe_allow_html=True
+    )
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    chatbot_question = st.text_area(
+        "💬 Ask NIRMAYA",
+        placeholder=(
+            "Example: What does cholesterol mean?\n"
+            "Example: What does my screening result mean?\n"
+            "Example: How does report OCR work?"
+        ),
+        key="nirmaya_chat_question",
+        height=120
+    )
+
+    if st.button(
+        "🚀 Ask NIRMAYA AI",
+        type="primary",
+        key="nirmaya_chat_button"
+    ):
+
+        if chatbot_question.strip():
+
+            st.markdown(
+                f'<div class="nirmaya-user-message"><b>👤 You</b><br>{chatbot_question}</div>',
+                unsafe_allow_html=True
+            )
+
+            with st.spinner("🤖 NIRMAYA AI is thinking..."):
+
+                try:
+
+                    # Use OCR report data if available
+                    report_context = st.session_state.get(
+                        "ocr_data",
+                        None
+                    )
+
+                    answer = ask_nirmaya_ai(
+                        chatbot_question,
+                        report_context
+                    )
+
+                    st.markdown(
+                        '<div class="nirmaya-ai-message"><b>🤖 NIRMAYA AI</b></div>',
+                        unsafe_allow_html=True
+                    )
+
+                    # Keep AI response as normal Streamlit text/markdown
+                    # so that formatting from the chatbot is preserved.
+                    st.markdown(answer)
+
+                    st.markdown(
+                        '<div class="nirmaya-warning">⚠️ NIRMAYA AI provides informational screening support only. It does not replace a qualified medical professional.</div>',
+                        unsafe_allow_html=True
+                    )
+
+                except Exception as e:
+
+                    st.error(
+                        f"Unable to get an AI response: {e}"
+                    )
+
+        else:
+
+            st.warning(
+                "💬 Please enter a question first."
+            )
+
 
 st.divider()
 
