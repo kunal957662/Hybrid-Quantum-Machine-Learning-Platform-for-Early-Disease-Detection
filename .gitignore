@@ -6,3 +6,7 @@ env/
 .env
 .streamlit/secrets.toml
 .ipynb_checkpoints/
+# NIRMAYA AI local data
+patient_history.db
+patient_reports/
+
