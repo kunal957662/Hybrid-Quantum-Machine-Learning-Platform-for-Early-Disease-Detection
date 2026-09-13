@@ -485,14 +485,6 @@ GitHub
 
 Streamlit Community Cloud
 
-💻 Run the Project Locally
-
-1. Clone the repository
-
-git clone https://github.com/kunal957662/Hybrid-Quantum-Machine-Learning-Platform-for-Early-Disease-Detection.git
-
-Then:
-
 cd Hybrid-Quantum-Machine-Learning-Platform-for-Early-Disease-Detection
 
 2. Create a virtual environment
@@ -824,14 +816,6 @@ IoT
 Embedded Systems
 
 Research
-
-GitHub
-
-👉 https://github.com/kunal957662
-
-Project Repository
-
-👉 https://github.com/kunal957662/Hybrid-Quantum-Machine-Learning-Platform-for-Early-Disease-Detection
 
 Live Demo
 
