@@ -5,8 +5,6 @@ AI-powered platform for multi-disease screening and healthcare assistance
 🚀 Live Demo:
 https://hybrid-quantum-machine-learning-platform-for-early-disease-det.streamlit.app/
 
-📦 GitHub Repository:
-https://github.com/kunal957662/Hybrid-Quantum-Machine-Learning-Platform-for-Early-Disease-Detection
 
 📌 About the Project
 
