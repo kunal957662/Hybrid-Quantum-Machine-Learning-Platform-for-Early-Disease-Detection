@@ -7,3 +7,6 @@ matplotlib
 seaborn
 google-genai
 python-dotenv
+Pillow
+PyMuPDF
+pypdf
