@@ -180,7 +180,7 @@ section[data-testid="stSidebar"] {
     background:linear-gradient(180deg,#ffffff 0%,#edfaff 100%);
     border-right:1px solid #d7edf2;
 }
-section[data-testid="stSidebar"] * { color:#173f64 !important; }
+section[data-testid="stSidebar"] * { color:#6b1111 !important; }
 hr { border-color:#d9edf2; }
 .stCaption { color:#68869d !important; }
 
@@ -363,32 +363,56 @@ page = st.session_state.get("page", "Home")
 st.markdown("""
 <style>
 /* Floating AI launcher */
+/* Floating chat launcher: always visible, circular, dark green */
 [data-testid="stPopover"] {
     position: fixed !important;
-    right: 28px !important;
-    bottom: 28px !important;
-    z-index: 999999 !important;
+    right: 26px !important;
+    bottom: 26px !important;
+    z-index: 2147483000 !important;
 }
-[data-testid="stPopover"] > button {
-    border-radius: 999px !important;
-    min-height: 58px !important;
-    min-width: 58px !important;
-    width: 58px !important;
+
+[data-testid="stPopover"] button {
+    width: 66px !important;
+    min-width: 66px !important;
+    height: 66px !important;
+    min-height: 66px !important;
+    max-width: 66px !important;
+    max-height: 66px !important;
     padding: 0 !important;
-    font-size: 25px !important;
-    background: linear-gradient(135deg,#0ea5e9,#2563eb,#7c3aed) !important;
-    color: white !important;
-    border: 3px solid rgba(255,255,255,.9) !important;
-    box-shadow: 0 10px 30px rgba(37,99,235,.30) !important;
+    margin: 0 !important;
+    border-radius: 50% !important;
+    background: #064e3b !important;
+    background-image: none !important;
+    color: #ffffff !important;
+    border: 3px solid #ffffff !important;
+    box-shadow: 0 10px 30px rgba(6,78,59,.42) !important;
+    font-size: 28px !important;
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease !important;
 }
-[data-testid="stPopover"] > button:hover {
-    transform: translateY(-3px) scale(1.04);
-    box-shadow: 0 15px 38px rgba(37,99,235,.38) !important;
+
+[data-testid="stPopover"] button:hover {
+    background: #047857 !important;
+    color: #ffffff !important;
+    transform: translateY(-3px) scale(1.06) !important;
+    box-shadow: 0 15px 38px rgba(6,78,59,.55) !important;
 }
+
+/* The popover panel that opens after clicking the circle */
+[data-testid="stPopoverBody"] {
+    width: min(390px, calc(100vw - 32px)) !important;
+    max-width: 390px !important;
+    border-radius: 20px !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,.25) !important;
+}
+
 .nirmaya-floating-title {
     font-size: 22px;
     font-weight: 900;
-    color: #075985 !important;
+    color: #6b1111 !important;
     margin-bottom: 2px;
 }
 .nirmaya-floating-subtitle {
@@ -759,7 +783,7 @@ div[data-testid="stHorizontalBlock"] button:hover {
 
 .nir-stat span {
     display:block;
-    color:#82a9bb;
+    color:#8a3030;
     font-size:11px;
     line-height:1.45;
     margin-top:5px;
@@ -776,7 +800,7 @@ div[data-testid="stHorizontalBlock"] button:hover {
 
 .nir-feature-subtitle {
     text-align:center;
-    color:#87a9bb;
+    color:#8a3030;
     font-size:14px;
     margin-bottom:18px;
 }
@@ -824,7 +848,7 @@ div[data-testid="stHorizontalBlock"] button:hover {
 
 .nir-feature-card p {
     margin:0;
-    color:#91b1c0 !important;
+    color:#8a3030 !important;
     line-height:1.6;
     font-size:12px;
 }
@@ -861,7 +885,7 @@ div[data-testid="stHorizontalBlock"] button:hover {
 
 .nir-disease span {
     display:block;
-    color:#7399aa;
+    color:#8a3030;
     font-size:9px;
     margin-top:4px;
 }
@@ -897,7 +921,7 @@ div[data-testid="stHorizontalBlock"] button:hover {
 
 .nir-privacy span {
     display:block;
-    color:#8eafbd;
+    color:#8a3030;
     font-size:11px;
     line-height:1.5;
     margin-top:3px;
@@ -923,13 +947,13 @@ div[data-testid="stHorizontalBlock"] button:hover {
 
 .nir-footer small {
     display:block;
-    color:#7fa5b7;
+    color:#8a3030;
     font-size:10px;
     margin-top:4px;
 }
 
 .nir-footer-links {
-    color:#8db2c1;
+    color:#8a3030;
     font-size:11px;
 }
 
@@ -1052,34 +1076,147 @@ if page == "Home":
 
 # ============================================================
 # ============================================================
-# 💜 NIRMAYA AI — FINAL AI PURPLE LIGHT PREMIUM HEALTHCARE THEME
+# FINAL LIGHT-BLUE HEALTHCARE THEME
 # ============================================================
 st.markdown("""
 <style>
-html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"], .stApp { background:#F7F5FF !important; color:#241B3A !important; }
-.stApp { background: radial-gradient(circle at 5% 5%,rgba(124,77,255,.08),transparent 25%), radial-gradient(circle at 95% 8%,rgba(167,139,250,.12),transparent 28%), linear-gradient(135deg,#FCFBFF 0%,#F5F1FF 55%,#FAF8FF 100%) !important; }
-.block-container { max-width:1536px !important; padding-top:.5rem !important; }
-h1,h2,h3,h4,h5,h6 { color:#241B3A !important; } p,label,.stMarkdown,.stCaption,span { color:#655B78 !important; }
-.nir-brand { color:#241B3A !important; } .nir-name { background:linear-gradient(90deg,#6D28D9,#8B5CF6,#A855F7)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important; } .nir-tag{color:#8A7FA0!important}.nir-shield{background:linear-gradient(150deg,#7C3AED,#A855F7)!important;box-shadow:0 7px 22px rgba(124,58,237,.20)!important}
-div[data-testid="stHorizontalBlock"] button { background:rgba(255,255,255,.82)!important;color:#5E5374!important;border:1px solid #E4DDF4!important;border-radius:12px!important;font-weight:700!important;min-height:46px!important;box-shadow:0 5px 18px rgba(80,50,130,.05)!important }
-div[data-testid="stHorizontalBlock"] button:hover { background:#F1EAFF!important;color:#6D28D9!important;border-color:#BFA7F7!important;box-shadow:0 0 20px rgba(124,58,237,.10)!important }
-.theme-dot{background:#F3EEFF!important;color:#7C3AED!important;border:1px solid #DDD1F7!important}
-.nir-home-hero { background:linear-gradient(135deg,#FFFFFF 0%,#F5EEFF 52%,#F8F4FF 100%)!important;border:1px solid #E3D8F7!important;box-shadow:0 30px 80px rgba(83,54,130,.12),inset 0 1px 0 #fff!important }
-.nir-home-hero:before{background:radial-gradient(circle,rgba(124,58,237,.12),transparent 68%)!important}.nir-home-hero:after{background:radial-gradient(circle,rgba(168,85,247,.12),transparent 68%)!important}
-.nir-home-title{color:#241B3A!important}.nir-home-title .mint{background:linear-gradient(90deg,#6D28D9,#8B5CF6)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}.nir-home-title .violet{background:linear-gradient(90deg,#8B5CF6,#C026D3)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}.nir-home-description{color:#6D6380!important}
-.nir-ai-badge{background:linear-gradient(90deg,#F1EAFF,#F8EEFF)!important;border-color:#D8C8F8!important;color:#6D28D9!important}.nir-ai-dot{background:#8B5CF6!important;box-shadow:0 0 14px #A855F7!important}.nir-hero-pill{background:rgba(255,255,255,.9)!important;border-color:#E3D8F7!important;color:#6D6380!important}.nir-hero-pill:hover{border-color:#9B74EA!important;color:#6D28D9!important;background:#F5EFFF!important}
-.nir-stat,.nir-feature-card,.nir-disease,.nir-privacy,.nir-footer,.nir-orbit-card{background:linear-gradient(145deg,#FFFFFF,#F8F5FF)!important;border:1px solid #E4DCF3!important;box-shadow:0 15px 40px rgba(76,48,120,.08)!important}.nir-stat:hover,.nir-feature-card:hover,.nir-disease:hover{border-color:#C8B1F4!important;box-shadow:0 20px 45px rgba(76,48,120,.12),0 0 25px rgba(124,58,237,.06)!important}.nir-stat b,.nir-feature-heading,.nir-disease b{color:#2D2145!important}.nir-stat span,.nir-feature-subtitle,.nir-disease span{color:#766B88!important}
-.nir-section-title,.nir-section-title-highlight{color:#2D2145!important}.nir-section-title-highlight{background:linear-gradient(90deg,#6D28D9,#A855F7)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important}
-.stTextInput input,.stTextArea textarea,.stNumberInput input,[data-baseweb="select"] > div,[data-baseweb="input"] > div{background:#FFFFFF!important;color:#2D2145!important;border:1px solid #DDD3EE!important;border-radius:13px!important}.stTextInput input:focus,.stTextArea textarea:focus,.stNumberInput input:focus{border-color:#9B74EA!important;box-shadow:0 0 0 2px rgba(124,58,237,.10)!important}[data-baseweb="popover"],[data-baseweb="menu"],[role="listbox"]{background:#FFFFFF!important;color:#2D2145!important;border:1px solid #DDD3EE!important}[data-baseweb="option"]{color:#4D4261!important}[data-baseweb="option"]:hover{background:#F2EAFF!important;color:#6D28D9!important}
-.stButton > button{background:linear-gradient(100deg,#6D28D9,#8B5CF6 58%,#A855F7)!important;color:#FFFFFF!important;border:none!important;border-radius:13px!important;font-weight:800!important;box-shadow:0 8px 25px rgba(109,40,217,.20)!important}.stButton > button:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(109,40,217,.25)!important}
-[data-testid="stFileUploader"]{background:#FFFFFF!important;border:1px dashed #BFA7F7!important;border-radius:18px!important}[data-testid="stFileUploaderDropzone"]{background:#FAF8FF!important}
-.stRadio > div{background:#FFFFFF!important;border:1px solid #E0D7EF!important;border-radius:14px!important}
-[data-testid="stMetric"]{background:linear-gradient(145deg,#FFFFFF,#F7F3FF)!important;border:1px solid #E1D8F0!important;border-radius:18px!important;box-shadow:0 12px 30px rgba(76,48,120,.07)!important}[data-testid="stDataFrame"]{border:1px solid #E1D8F0!important}
-[data-testid="stTabs"] button{color:#756A88!important}[data-testid="stTabs"] button:hover{color:#6D28D9!important}[data-testid="stTabs"] button[aria-selected="true"]{color:#6D28D9!important}
-.patient-message-card{background:linear-gradient(135deg,#FFFFFF,#F6F0FF)!important;border:1px solid #E0D4F3!important}.patient-message-card b{color:#6D28D9!important}.patient-message-card small{color:#8B7F9E!important}.patient-message-card p{color:#413552!important}.doctor-reply-card{background:linear-gradient(135deg,#F1EAFF,#F8EEFF)!important;border:1px solid #D5C2F5!important;color:#3E2D57!important}.doctor-reply-card span{color:#513A72!important}.doctor-reply-card small{color:#7D6E91!important}
-.stAlert{background:#FAF8FF!important;border:1px solid #DDD1F1!important;border-radius:14px!important;color:#4A3D5D!important}.nirmaya-chat-box{background:linear-gradient(145deg,#FFFFFF,#F7F3FF)!important;border:1px solid #E1D8F0!important;box-shadow:0 15px 40px rgba(76,48,120,.10)!important}div[data-testid="stTextArea"] textarea{background:#FFFFFF!important;color:#2D2145!important;border:1px solid #DDD3EE!important}
-.nir-footer{background:linear-gradient(145deg,#F3EEFF,#FFFFFF)!important;border:1px solid #E0D6F0!important;color:#665A79!important}.nir-footer small{color:#887C9A!important}.nir-footer-ai{color:#6D28D9!important}hr{border-color:#E1D8EF!important}::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:#F7F5FF}::-webkit-scrollbar-thumb{background:#CFC1E7;border-radius:10px}::-webkit-scrollbar-thumb:hover{background:#9B74EA!important}
-@media(max-width:768px){[data-testid="stPopover"]{right:16px!important;bottom:16px!important}.nir-home-title{font-size:40px!important}}
+html, body, [data-testid="stAppViewContainer"], .stApp {
+    background: #eef8ff !important;
+    color: #6b1111 !important;
+}
+.stApp {
+    background:
+        radial-gradient(circle at 8% 5%, rgba(14,165,233,.16), transparent 24%),
+        radial-gradient(circle at 92% 10%, rgba(59,130,246,.12), transparent 25%),
+        linear-gradient(180deg,#eaf7ff 0%,#f4fbff 48%,#ffffff 100%) !important;
+}
+.block-container { max-width: 1536px !important; }
+
+h1,h2,h3,h4,h5,h6 { color:#6b1111 !important; }
+p, label, .stMarkdown, .stCaption, span { color:#7a1f1f !important; }
+
+/* Navigation */
+.nir-brand { color:#0b4775 !important; }
+.nir-name {
+    background:linear-gradient(90deg,#6b1111,#0284c7,#4f46e5) !important;
+    -webkit-background-clip:text !important;
+    background-clip:text !important;
+    color:transparent !important;
+}
+.nir-tag { color:#8a3030 !important; }
+.theme-dot {
+    background:#ffffff !important;
+    color:#6b1111 !important;
+    border:1px solid #bfdbfe !important;
+    box-shadow:0 6px 20px rgba(30,100,170,.10) !important;
+}
+div[data-testid="stHorizontalBlock"] button {
+    background:rgba(255,255,255,.82) !important;
+    color:#6b1111 !important;
+    border:1px solid #d3e9f7 !important;
+}
+div[data-testid="stHorizontalBlock"] button:hover {
+    background:#e0f2fe !important;
+    color:#7a1717 !important;
+    border-color:#7dd3fc !important;
+}
+
+/* Main cards */
+.nir-home-hero, .nir-stat, .nir-feature-card, .nir-disease,
+.nir-privacy, .nir-footer, .nir-orbit-card {
+    background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(232,247,255,.94)) !important;
+    border-color:#c9e6f5 !important;
+    box-shadow:0 12px 32px rgba(30,100,150,.10) !important;
+}
+.nir-home-title { color:#6b1111 !important; }
+.nir-home-description { color:#7f2929 !important; }
+.nir-hero-pill {
+    background:#e0f2fe !important;
+    border-color:#bae6fd !important;
+    color:#6b1111 !important;
+}
+.nir-ai-badge {
+    background:#e0f7ff !important;
+    border-color:#a5e4f7 !important;
+    color:#7a1717 !important;
+}
+.nir-stat b, .nir-feature-heading, .nir-disease b { color:#6b1111 !important; }
+.nir-stat span, .nir-feature-subtitle, .nir-disease span { color:#8a3030 !important; }
+
+/* Inputs */
+.stTextInput input, .stTextArea textarea, .stNumberInput input,
+[data-baseweb="select"] > div, [data-baseweb="input"] > div {
+    background:#ffffff !important;
+    color:#6b1111 !important;
+    border:1px solid #c7dfed !important;
+}
+.stTextInput input:focus, .stTextArea textarea:focus, .stNumberInput input:focus {
+    border-color:#38bdf8 !important;
+    box-shadow:0 0 0 3px rgba(56,189,248,.13) !important;
+}
+[data-baseweb="popover"], [data-baseweb="menu"], [role="listbox"] {
+    background:#ffffff !important;
+    color:#6b1111 !important;
+}
+[data-baseweb="option"] { color:#6b1111 !important; }
+[data-baseweb="option"]:hover { background:#e0f2fe !important; }
+
+/* Buttons */
+.stButton > button {
+    background:linear-gradient(100deg,#0891b2,#168cff,#6366f1) !important;
+    color:#ffffff !important;
+    box-shadow:0 8px 22px rgba(37,99,235,.16) !important;
+}
+.stButton > button:hover { box-shadow:0 12px 28px rgba(37,99,235,.24) !important; }
+
+/* Uploaders / metrics / tables */
+[data-testid="stFileUploader"] {
+    background:#ffffff !important;
+    border:1px dashed #7dd3fc !important;
+}
+[data-testid="stFileUploaderDropzone"] { background:#f5fbff !important; }
+.stRadio > div {
+    background:#ffffff !important;
+    border:1px solid #d6eaf5 !important;
+}
+[data-testid="stMetric"] {
+    background:linear-gradient(145deg,#ffffff,#edf8ff) !important;
+    border:1px solid #cde6f4 !important;
+}
+[data-testid="stDataFrame"] { border:1px solid #d5eaf5 !important; }
+hr { border-color:#cfe6f2 !important; }
+
+/* Patient / doctor messaging */
+.patient-message-card {
+    background:linear-gradient(135deg,#ffffff,#eaf6ff) !important;
+    border-color:#bfdbfe !important;
+}
+.patient-message-card b { color:#7a1717 !important; }
+.patient-message-card small { color:#8a3030 !important; }
+.patient-message-card p { color:#7a1f1f !important; }
+.doctor-reply-card {
+    background:linear-gradient(135deg,#ecfeff,#eff6ff) !important;
+    border-color:#a5dff1 !important;
+    color:#7a1f1f !important;
+}
+.doctor-reply-card span { color:#7a1f1f !important; }
+.doctor-reply-card small { color:#8a3030 !important; }
+
+/* Section titles */
+.nir-section-title-highlight {
+    background:linear-gradient(135deg,#e0f7ff,#e8eaff) !important;
+    border-color:#b9ddf1 !important;
+    color:#6b1111 !important;
+}
+
+/* Footer */
+.nir-footer { color:#7a1f1f !important; }
+.nir-footer-ai { color:#6b1111 !important; }
+
+/* Mobile */
+@media (max-width: 768px) {
+    [data-testid="stPopover"] { right:16px !important; bottom:16px !important; }
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -3399,3 +3536,264 @@ st.caption(
     "🏥 NIRAMAYA • Multi-Disease AI Screening • "
     "For screening support only, not medical diagnosis."
 )
+
+st.markdown("""
+<style>
+/* NIRAMAYA DARK-RED TEXT + VISIBILITY FIXES */
+
+h1, h2, h3, h4, h5, h6,
+.stMarkdown, .stCaption, p, label,
+.stTextInput label, .stNumberInput label, .stSelectbox label,
+.stMultiSelect label, .stRadio label, .stTextArea label,
+[data-testid="stWidgetLabel"] {
+    color: #6b1111 !important;
+}
+
+.nir-name, .nir-feature-heading, .nir-stat b,
+.nir-feature-card h3, .nir-disease b,
+.nir-privacy b, .nir-footer b, .nir-footer-ai {
+    color: #6b1111 !important;
+}
+
+.stTextInput input, .stTextArea textarea, .stNumberInput input {
+    color: #6b1111 !important;
+    -webkit-text-fill-color: #6b1111 !important;
+}
+
+/* Disease selector: make selected disease and all dropdown items clearly visible. */
+[data-testid="stSelectbox"] [data-baseweb="select"] > div {
+    background: #ffffff !important;
+    border: 2px solid #b65b5b !important;
+    color: #4f0808 !important;
+    min-height: 48px !important;
+}
+
+[data-testid="stSelectbox"] [data-baseweb="select"] span,
+[data-testid="stSelectbox"] [data-baseweb="select"] input {
+    color: #4f0808 !important;
+    -webkit-text-fill-color: #4f0808 !important;
+    opacity: 1 !important;
+}
+
+[data-baseweb="popover"],
+[data-baseweb="menu"],
+[role="listbox"] {
+    background: #ffffff !important;
+    color: #4f0808 !important;
+    border: 1px solid #d9b1b1 !important;
+}
+
+[role="option"] {
+    background: #ffffff !important;
+    color: #4f0808 !important;
+    -webkit-text-fill-color: #4f0808 !important;
+    font-weight: 650 !important;
+}
+
+[role="option"] * {
+    color: #4f0808 !important;
+    -webkit-text-fill-color: #4f0808 !important;
+}
+
+[role="option"]:hover,
+[role="option"][aria-selected="true"] {
+    background: #f7e8e8 !important;
+    color: #5f0909 !important;
+}
+
+/* Medical Parameters: strong high-contrast heading. */
+.nir-medical-parameters-title {
+    display: block;
+    width: 100%;
+    margin: 22px 0 10px;
+    padding: 15px 20px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #fff4f4, #fbeaea) !important;
+    border: 2px solid #d58b8b !important;
+    color: #5b0909 !important;
+    font-size: 25px !important;
+    font-weight: 900 !important;
+    line-height: 1.25;
+    box-shadow: 0 7px 20px rgba(107,17,17,.10);
+}
+
+.nir-medical-parameters-title * {
+    color: #5b0909 !important;
+}
+
+/* Upload mode message. */
+.nir-upload-mode-title {
+    display: block;
+    width: 100%;
+    margin: 18px 0 10px;
+    padding: 13px 18px;
+    border-radius: 14px;
+    background: #fff7f7 !important;
+    border: 1px solid #d99a9a !important;
+    color: #5b0909 !important;
+    font-size: 21px !important;
+    font-weight: 850 !important;
+}
+
+.nir-upload-hidden-note {
+    margin: 18px 0 8px;
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: #fff7f7 !important;
+    border: 1px dashed #c77777 !important;
+    color: #641010 !important;
+    line-height: 1.6;
+}
+
+.nir-upload-hidden-note b {
+    color: #4f0808 !important;
+}
+
+/* Floating NIRMAYA AI chat: dark-green circular button. */
+/* Final floating chat launcher override */
+[data-testid="stPopover"] {
+    position: fixed !important;
+    right: 26px !important;
+    bottom: 26px !important;
+    z-index: 2147483000 !important;
+}
+[data-testid="stPopover"] button {
+    width: 66px !important;
+    min-width: 66px !important;
+    height: 66px !important;
+    min-height: 66px !important;
+    max-width: 66px !important;
+    max-height: 66px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    background: #064e3b !important;
+    background-image: none !important;
+    color: #ffffff !important;
+    border: 3px solid #ffffff !important;
+    box-shadow: 0 10px 30px rgba(6,78,59,.42) !important;
+    font-size: 28px !important;
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+[data-testid="stPopover"] button:hover {
+    background: #047857 !important;
+    color: #ffffff !important;
+    transform: translateY(-3px) scale(1.06) !important;
+    box-shadow: 0 15px 38px rgba(6,78,59,.55) !important;
+}
+[data-testid="stPopoverBody"] {
+    width: min(390px, calc(100vw - 32px)) !important;
+    max-width: 390px !important;
+    border-radius: 20px !important;
+}
+
+.nirmaya-floating-title {
+    color: #064e3b !important;
+}
+
+.nirmaya-floating-subtitle {
+    color: #4f5f58 !important;
+}
+
+.nirmaya-floating-answer {
+    color: #12352c !important;
+}
+
+@media (max-width: 768px) {
+    [data-testid="stPopover"] {
+        right: 16px !important;
+        bottom: 16px !important;
+    }
+
+    [data-testid="stPopover"] button {
+        width: 58px !important;
+        min-width: 58px !important;
+        height: 58px !important;
+        min-height: 58px !important;
+        max-width: 58px !important;
+        max-height: 58px !important;
+    }
+}
+</style>
+""", unsafe_allow_html=True)
+
+# ============================================================
+# FINAL FLOATING AI CIRCLE OVERRIDE
+# ============================================================
+st.markdown("""
+<style>
+/* Force the floating NIRMAYA AI launcher to be a true full circle. */
+[data-testid="stPopover"] {
+    position: fixed !important;
+    right: 22px !important;
+    bottom: 22px !important;
+    width: 72px !important;
+    height: 72px !important;
+    z-index: 2147483647 !important;
+}
+
+[data-testid="stPopover"] > div,
+[data-testid="stPopover"] > div > div {
+    width: 72px !important;
+    height: 72px !important;
+}
+
+[data-testid="stPopover"] button {
+    width: 72px !important;
+    min-width: 72px !important;
+    max-width: 72px !important;
+    height: 72px !important;
+    min-height: 72px !important;
+    max-height: 72px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 50% !important;
+    aspect-ratio: 1 / 1 !important;
+    overflow: hidden !important;
+    background: #064e3b !important;
+    border: 3px solid #ffffff !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 28px rgba(6, 78, 59, 0.45) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+[data-testid="stPopover"] button p,
+[data-testid="stPopover"] button span {
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #ffffff !important;
+    line-height: 1 !important;
+    font-size: 30px !important;
+}
+
+[data-testid="stPopover"] button:hover {
+    background: #047857 !important;
+    transform: scale(1.08) !important;
+    box-shadow: 0 12px 34px rgba(6, 78, 59, 0.58) !important;
+}
+
+@media (max-width: 768px) {
+    [data-testid="stPopover"] {
+        right: 14px !important;
+        bottom: 14px !important;
+        width: 62px !important;
+        height: 62px !important;
+    }
+    [data-testid="stPopover"] > div,
+    [data-testid="stPopover"] > div > div,
+    [data-testid="stPopover"] button {
+        width: 62px !important;
+        min-width: 62px !important;
+        max-width: 62px !important;
+        height: 62px !important;
+        min-height: 62px !important;
+        max-height: 62px !important;
+    }
+}
+</style>
+""", unsafe_allow_html=True)
+
